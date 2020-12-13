@@ -2,11 +2,13 @@ package kata.supermarket;
 
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements IProduct {
 
     private final BigDecimal pricePerUnit;
+    private final String name;
 
-    public Product(final BigDecimal pricePerUnit) {
+    public Product(final String name, final BigDecimal pricePerUnit) {
+        this.name = name;
         this.pricePerUnit = pricePerUnit;
     }
 
@@ -16,5 +18,10 @@ public class Product {
 
     public Item oneOf() {
         return new ItemByUnit(this);
+    }
+
+    @Override
+    public String getName(){
+        return this.name;
     }
 }
