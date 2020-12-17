@@ -9,5 +9,7 @@ public interface Item {
 
     boolean isDiscountApplied();
 
-    void setDiscountApplied(boolean val);
+    //void setDiscountApplied(boolean val);
+
+    Item applyDiscount();
 }

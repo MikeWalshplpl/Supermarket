@@ -13,7 +13,14 @@ import java.util.List;
 public class DiscountManager {
     List<DiscountGroup> discountGroups = new ArrayList<>();
 
+    public DiscountManager(DiscountGroup... discountGroups){
+        for ( DiscountGroup group : discountGroups ) {
+            this.discountGroups.add( group );
+        }
+    }
+
     public BigDecimal getDiscountTotal(List<Item> items) {
+
         BigDecimal discountTotal = BigDecimal.ZERO;
         for (DiscountGroup discountGroup : discountGroups) {
             discountTotal = discountTotal.add(discountGroup.processDiscount(items));
@@ -21,11 +28,4 @@ public class DiscountManager {
         return discountTotal;
     }
 
-    public void addDiscountGroup(IDiscount discount, Item... items) {
-        discountGroups.add(new DiscountGroup(discount, items));
-    }
-
-    public void addDiscountGroup(IDiscount discount, IProduct... products) {
-        discountGroups.add(new DiscountGroup(discount, products));
-    }
 }

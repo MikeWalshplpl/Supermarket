@@ -21,7 +21,7 @@ public class Product implements IProduct {
     }
 
     @Override
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 }

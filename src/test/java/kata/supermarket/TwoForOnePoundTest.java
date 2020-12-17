@@ -19,10 +19,9 @@ public class TwoForOnePoundTest {
     @MethodSource
     @ParameterizedTest(name = "{0}")
     void buyTwoItemsForOnePoundProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
-        DiscountManager manager = new DiscountManager();
-        manager.addDiscountGroup(new TwoForOnePound(), aPintOfMilkOnOffer(), aBarOfSoapOnOffer(), aChocolateBarOnOffer(),aDrinksBottleOnOffer());
-        basket.setDiscountManager(manager);
+        DiscountManager manager = new DiscountManager(new DiscountGroup(new TwoForOnePound(), aPintOfMilkOnOffer(), aBarOfSoapOnOffer(), aChocolateBarOnOffer(), aDrinksBottleOnOffer()));
+        final Basket basket = new Basket(manager);
+
         items.forEach(basket::add);
         assertEquals(new BigDecimal(expectedTotal), basket.total());
     }
@@ -47,7 +46,7 @@ public class TwoForOnePoundTest {
     }
 
     private static Arguments twoItemsInDeal() {
-        return Arguments.of("two all on deal", "1.00", Arrays.asList(aChocolateBarOnOffer(),aBarOfSoapOnOffer()));
+        return Arguments.of("two all on deal", "1.00", Arrays.asList(aChocolateBarOnOffer(), aBarOfSoapOnOffer()));
     }
 
     private static Arguments twoItemsInBadDeal() {

@@ -5,10 +5,17 @@ import java.math.BigDecimal;
 public class ItemByUnit implements Item {
 
     private final Product product;
-    private boolean discountApplied = false;
+    private final boolean discountApplied ;
 
-    ItemByUnit(final Product product) {
+    ItemByUnit(final Product product)
+    {
         this.product = product;
+        this.discountApplied = false;
+    }
+
+    ItemByUnit(final Product product, boolean discountApplied) {
+        this.product = product;
+        this.discountApplied = discountApplied;
     }
 
     public BigDecimal price() {
@@ -26,7 +33,7 @@ public class ItemByUnit implements Item {
     }
 
     @Override
-    public void setDiscountApplied(boolean val) {
-        this.discountApplied = val;
+    public Item applyDiscount() {
+        return new ItemByUnit(this.product, true);
     }
 }

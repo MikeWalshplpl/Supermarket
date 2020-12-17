@@ -18,10 +18,8 @@ public class ThreeForTwoTest {
     @MethodSource
     @ParameterizedTest(name = "{0}")
     void buyThreeForThePriceOfTwoProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
-        DiscountManager manager = new DiscountManager();
-        manager.addDiscountGroup(new ThreeForTwo(), aPintOfMilkOnOffer(), aLoafOfBreadOnOffer(), aPackOfDigestivesOnOffer());
-        basket.setDiscountManager(manager);
+        DiscountManager manager = new DiscountManager(new DiscountGroup(new ThreeForTwo(), aPintOfMilkOnOffer(), aLoafOfBreadOnOffer(), aPackOfDigestivesOnOffer()));
+        final Basket basket = new Basket(manager);
         items.forEach(basket::add);
         assertEquals(new BigDecimal(expectedTotal), basket.total());
     }

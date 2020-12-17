@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  */
 public class DiscountGroup {
 
-    private List<String> productsInGroup = new ArrayList<>();
-    private IDiscount discount;
+    private final List<String> productsInGroup = new ArrayList<>();
+    private final IDiscount discount;
 
     public DiscountGroup(IDiscount discount, Item... items) {
         Arrays.stream(items).forEach(item -> productsInGroup.add(item.getProductName()));
@@ -32,7 +32,7 @@ public class DiscountGroup {
         List<Item> validItems = items.stream().filter(i -> productsInGroup.contains(i.getProductName())).collect(Collectors.toList());
         BigDecimal discountTotal = discount.processDiscount(validItems);
         // ensure the discount can only be applied once - this can be extended later to have some form of group ordering, eg buy 1 get one free could rank higher than two for £1 if the product is in both groups
-        validItems.forEach(i -> i.setDiscountApplied(true));
+        validItems.forEach(i -> i = i.applyDiscount());
         return discountTotal;
     }
 }

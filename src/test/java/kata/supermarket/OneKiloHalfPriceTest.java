@@ -1,5 +1,6 @@
 package kata.supermarket;
 
+import kata.supermarket.discounts.BuyOneGetOneFree;
 import kata.supermarket.discounts.OneKiloHalfPrice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,10 +20,8 @@ public class OneKiloHalfPriceTest {
     @MethodSource
     @ParameterizedTest(name = "{0}")
     void oneKgHalfPriceProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
-        DiscountManager manager = new DiscountManager();
-        manager.addDiscountGroup(new OneKiloHalfPrice(), aKiloOfPickAndMix(), aKiloOfAmericanSweets());
-        basket.setDiscountManager(manager);
+        DiscountManager manager = new DiscountManager( new DiscountGroup( new OneKiloHalfPrice(), aKiloOfPickAndMix(), aKiloOfAmericanSweets()));
+        final Basket basket = new Basket(manager);
         items.forEach(basket::add);
         assertEquals(new BigDecimal(expectedTotal), basket.total());
     }

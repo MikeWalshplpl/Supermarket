@@ -20,10 +20,10 @@ public class BuyOneGetOneFreeTest {
     @MethodSource
     @ParameterizedTest(name = "{0}")
     void buyOneGetOneFreeProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
-        DiscountManager manager = new DiscountManager();
-        manager.addDiscountGroup(new BuyOneGetOneFree(), aPintOfMilkOnOffer(), aLoafOfBreadOnOffer());
-        basket.setDiscountManager(manager);
+
+        DiscountManager manager = new DiscountManager(new DiscountGroup(new BuyOneGetOneFree(), aPintOfMilkOnOffer(), aLoafOfBreadOnOffer()));
+        final Basket basket = new Basket(manager);
+        //basket.setDiscountManager();
         items.forEach(basket::add);
         assertEquals(new BigDecimal(expectedTotal), basket.total());
     }

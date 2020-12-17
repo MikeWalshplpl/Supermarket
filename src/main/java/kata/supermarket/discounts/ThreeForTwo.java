@@ -1,6 +1,6 @@
 package kata.supermarket.discounts;
 
-public class ThreeForTwo extends BuySomeGetSomeFree{
+public class ThreeForTwo extends BuySomeGetSomeFree {
     @Override
     protected int getAmountNeededToBuy() {
         return 2;

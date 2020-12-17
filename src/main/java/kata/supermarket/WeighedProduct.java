@@ -21,7 +21,7 @@ public class WeighedProduct implements IProduct {
     }
 
     @Override
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 }

@@ -9,10 +9,11 @@ import java.util.List;
 public class Basket {
     private final List<Item> items;
 
-    private DiscountManager discountManager;
+    private final DiscountManager discountManager;
 
-    public Basket() {
+    public Basket(DiscountManager manager) {
         this.items = new ArrayList<>();
+        this.discountManager = manager;
     }
 
     public void add(final Item item) {
@@ -27,9 +28,9 @@ public class Basket {
         return new TotalCalculator().calculate();
     }
 
-    public void setDiscountManager(DiscountManager manager) {
-        this.discountManager = manager;
-    }
+//    public void setDiscountManager(DiscountManager manager) {
+//        this.discountManager = manager;
+//    }
 
     private class TotalCalculator {
         private final List<Item> items;
